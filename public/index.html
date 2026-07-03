@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SilverLine Toronto | Senior Safety & Care Agent</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="text-medium">
+  <!-- Skip link for keyboard accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Emergency Alert Banner (Hidden by default, shown during triage crisis) -->
+  <div id="emergency-banner" class="emergency-banner hidden" role="alert">
+    <div class="banner-content">
+      <i class="fa-solid fa-triangle-exclamation fa-beat"></i>
+      <span><strong>EMERGENCY STATUS ACTIVE:</strong> Toronto Emergency Services have been simulated to be dispatched.</span>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo-area">
+        <div class="logo-icon">
+          <i class="fa-solid fa-shield-heart"></i>
+        </div>
+        <div class="logo-text">
+          <h1>SilverLine <span class="accent">Toronto</span></h1>
+          <p class="subtitle">AI Safety Agent for Seniors</p>
+        </div>
+      </div>
+
+      <div class="accessibility-panel" aria-label="Accessibility settings">
+        <!-- Font Size Controls -->
+        <div class="control-group">
+          <span class="control-label"><i class="fa-solid fa-font"></i> Text Size:</span>
+          <button id="btn-text-normal" class="btn-pill active" aria-label="Normal text size">Normal</button>
+          <button id="btn-text-large" class="btn-pill" aria-label="Large text size">Large</button>
+          <button id="btn-text-xlarge" class="btn-pill" aria-label="Extra large text size">Extra Large</button>
+        </div>
+
+        <!-- High Contrast Mode Toggle -->
+        <button id="btn-contrast-toggle" class="btn-icon-pill" aria-label="Toggle high contrast mode">
+          <i class="fa-solid fa-circle-half-stroke"></i>
+          <span>Contrast Mode</span>
+        </button>
+
+        <!-- Voice Read Aloud Toggle -->
+        <button id="btn-voice-toggle" class="btn-icon-pill active" aria-label="Toggle voice guidance">
+          <i id="voice-icon" class="fa-solid fa-volume-high"></i>
+          <span>Voice: <strong id="voice-status-text">ON</strong></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main id="main-content" class="main-layout">
+      <!-- Left side: Interactive Chat Agent -->
+      <section class="card chat-card" aria-label="Chat with Safety Agent">
+        <div class="card-header">
+          <div class="agent-status">
+            <span class="status-indicator online"></span>
+            <div>
+              <h3>Agent SilverLine</h3>
+              <p>Active & Listening to help you</p>
+            </div>
+          </div>
+          <button id="btn-restart" class="btn-text-action" aria-label="Restart conversation">
+            <i class="fa-solid fa-rotate-left"></i> Restart
+          </button>
+        </div>
+
+        <!-- Chat History -->
+        <div id="chat-history" class="chat-history" role="log" aria-live="polite">
+          <!-- Chat messages will be dynamically injected here -->
+        </div>
+
+        <!-- Suggested Options Container (Buttons for easy input) -->
+        <div id="quick-replies" class="quick-replies hidden">
+          <!-- Dynamically injected choices -->
+        </div>
+
+        <!-- Chat Input Form -->
+        <form id="chat-form" class="chat-form">
+          <div class="input-wrapper">
+            <input 
+              type="text" 
+              id="user-input" 
+              placeholder="Type your message here..." 
+              autocomplete="off" 
+              aria-label="Write your message here"
+              required
+            >
+            <button type="button" id="btn-mic" class="btn-mic" aria-label="Speak your message">
+              <i class="fa-solid fa-microphone"></i>
+            </button>
+          </div>
+          <button type="submit" id="btn-send" class="btn-send" aria-label="Send message">
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </form>
+      </section>
+
+      <!-- Right side: Resource Retrieval & Active Case Status -->
+      <section class="sidebar-layout">
+        <!-- Active Case Card -->
+        <div id="case-status-card" class="card status-card">
+          <div class="card-header-small">
+            <h3><i class="fa-solid fa-folder-open"></i> Safety Intake Status</h3>
+            <span id="badge-mode" class="badge mode-triage">Triage Mode</span>
+          </div>
+          <div class="card-body">
+            <ul class="case-details">
+              <li>
+                <span class="label">Postal Code:</span>
+                <span id="case-postal-code" class="value empty">Not Provided</span>
+              </li>
+              <li>
+                <span class="label">Distress Category:</span>
+                <span id="case-category" class="value empty">Not Selected</span>
+              </li>
+              <li>
+                <span class="label">Safety Assessment:</span>
+                <span id="case-assessment" class="value status-ok">Awaiting Intake</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Main Emergency Support Actions -->
+        <div class="emergency-quick-actions">
+          <button id="btn-call-911" class="btn-emergency btn-911">
+            <i class="fa-solid fa-phone-flip"></i>
+            <div>
+              <strong>Call 911</strong>
+              <span>Immediate Danger / Chest Pain</span>
+            </div>
+          </button>
+          <button id="btn-call-distress" class="btn-emergency btn-distress">
+            <i class="fa-solid fa-heart-pulse"></i>
+            <div>
+              <strong>Distress Centre</strong>
+              <span>Talk to Someone (416-408-4357)</span>
+            </div>
+          </button>
+        </div>
+
+        <!-- Matched Resources Card -->
+        <div class="card resources-card flex-grow">
+          <div class="card-header-small">
+            <h3><i class="fa-solid fa-hands-holding-child"></i> Verified Local Resources</h3>
+          </div>
+          <div id="resources-list" class="resources-list">
+            <!-- Dynamically matched local support programs -->
+            <div class="empty-state">
+              <i class="fa-solid fa-magnifying-glass-location"></i>
+              <p>State your needs in the chat to automatically match verified local Toronto assistance programs.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Static Helplines -->
+        <div class="card helplines-card">
+          <div class="card-body">
+            <h4>Important Toronto Numbers</h4>
+            <div class="helpline-grid">
+              <div class="helpline-item">
+                <strong>Toronto 211</strong>
+                <span>Community Programs (Dial 2-1-1)</span>
+              </div>
+              <div class="helpline-item">
+                <strong>Health811</strong>
+                <span>Telehealth Ontario (Dial 8-1-1)</span>
+              </div>
+              <div class="helpline-item">
+                <strong>Elder Abuse</strong>
+                <span>Prevention Hotline (1-866-299-1011)</span>
+              </div>
+              <div class="helpline-item">
+                <strong>CAMH Crisis</strong>
+                <span>Mental Health Support (1-800-463-6273)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>&copy; 2026 SilverLine Toronto. A public safety demonstration built for Kaggle "Agents for Good".</p>
+      <p class="disclaimer">Disclaimer: This is an AI safety agent designed to assist with resource triage. In a life-threatening crisis, always call 911 immediately.</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

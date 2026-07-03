@@ -1,0 +1,17 @@
+{
+  "name": "silverline-toronto",
+  "version": "1.0.0",
+  "description": "Empathetic safety and resource triage agent for seniors in Toronto.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "author": "Antigravity AI",
+  "license": "MIT"
+}
